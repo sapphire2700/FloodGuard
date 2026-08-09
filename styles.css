@@ -598,3 +598,15 @@ footer b{color:var(--ink-1);}
   .status-pill{padding:7px;}
   .reading{font-size:2.15rem;}
 }
+
+/* Authentication screens */
+#signupScreen{position:relative; z-index:2; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+#signupScreen[hidden]{display:none;}
+.password-field{position:relative;}
+.password-field .text-input{padding-right:48px;}
+.password-toggle{position:absolute; top:50%; right:7px; transform:translateY(-50%); width:34px; height:34px; border:0; border-radius:8px; background:transparent; color:var(--ink-2); cursor:pointer; font-size:1rem; line-height:1;}
+.password-toggle:hover,.password-toggle.is-visible{color:var(--water-bright); background:rgba(58,167,214,0.12);}
+.auth-switch{text-align:center; font-size:0.75rem; color:var(--ink-2); margin-top:15px;}
+.auth-switch button{padding:0; border:0; background:transparent; color:var(--water-bright); font:inherit; cursor:pointer;}
+.auth-switch button:hover{text-decoration:underline;}
+@media (max-width:600px){#signupScreen{align-items:flex-start; padding:16px;} #signupScreen .login-card{margin-top:4vh;}}

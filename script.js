@@ -112,23 +112,57 @@
     $('roleCardBarangay').classList.toggle('selected', role==='barangay');
   }
 
+  function showAuthScreen(screen){
+    const signup = screen === 'signup';
+    $('loginScreen').style.display = signup ? 'none' : 'flex';
+    $('signupScreen').hidden = !signup;
+    if(signup) $('signupName').focus(); else $('loginName').focus();
+  }
+
+  document.querySelectorAll('[data-password-toggle]').forEach(button => {
+    button.addEventListener('click', () => {
+      const input = $(button.dataset.passwordToggle);
+      const visible = input.type === 'password';
+      input.type = visible ? 'text' : 'password';
+      button.classList.toggle('is-visible', visible);
+      button.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+      button.setAttribute('aria-pressed', String(visible));
+      button.textContent = visible ? '🙈' : '👁';
+    });
+  });
+
+  $('showSignupBtn').addEventListener('click', () => showAuthScreen('signup'));
+  $('showLoginBtn').addEventListener('click', () => showAuthScreen('login'));
+
   $('loginBtn').addEventListener('click', () => {
     const nameInput = $('loginName').value.trim();
     const name = nameInput || (selectedRole==='mdrrmo' ? 'Juan Dela Cruz' : 'Maria Santos');
-    currentUser = {
-      name: name,
-      role: selectedRole==='mdrrmo' ? 'MDRRMO Personnel' : 'Barangay Official',
-      roleKey: selectedRole
-    };
+    currentUser = { name, role: selectedRole==='mdrrmo' ? 'MDRRMO Personnel' : 'Barangay Official', roleKey: selectedRole };
     doLogin();
   });
   $('loginName').addEventListener('keydown', (e) => { if(e.key==='Enter') $('loginBtn').click(); });
+  $('loginPassword').addEventListener('keydown', (e) => { if(e.key==='Enter') $('loginBtn').click(); });
+
+  $('signupBtn').addEventListener('click', () => {
+    const name = $('signupName').value.trim();
+    const password = $('signupPassword').value;
+    const confirmation = $('signupConfirmPassword').value;
+    if(!name) return toast('Please enter your full name.');
+    if(password.length < 6) return toast('Password must have at least 6 characters.');
+    if(password !== confirmation) return toast('Passwords do not match.');
+    const roleKey = $('signupRole').value;
+    currentUser = { name, role: roleKey==='mdrrmo' ? 'MDRRMO Personnel' : 'Barangay Official', roleKey };
+    $('signupPassword').value = '';
+    $('signupConfirmPassword').value = '';
+    doLogin();
+  });
 
   $('logoutBtn').addEventListener('click', () => {
     currentUser = null;
     $('appShell').classList.remove('active');
-    $('loginScreen').style.display = 'flex';
+    showAuthScreen('login');
     $('loginName').value = '';
+    $('loginPassword').value = '';
     toast('Logged out successfully.');
   });
 

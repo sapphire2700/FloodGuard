@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -48,9 +48,24 @@
 
     <div class="field-label">Full name</div>
     <input class="text-input" id="loginName" type="text" placeholder="e.g. Juan Dela Cruz">
+    <div class="field-label">Password</div>
+    <div class="password-field"><input class="text-input" id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password"><button class="password-toggle" type="button" data-password-toggle="loginPassword" aria-label="Show password" aria-pressed="false">👁</button></div>
 
     <button class="login-btn btn-with-icon" id="loginBtn"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg>Log In</button>
-    <div class="login-hint">Demo access only — both roles share the same FloodGuard use cases<br>(water rise detection, real-time monitoring, predictive analytics, decision-support, thresholds, users, reports) per the system's use-case design.</div>
+    <div class="auth-switch">New to FloodGuard? <button type="button" id="showSignupBtn">Create an account</button></div>
+    <div class="login-hint">Demo access only — passwords are not stored. Both roles share the same FloodGuard use cases.</div>
+  </div>
+</div>
+
+<div id="signupScreen" hidden>
+  <div class="login-card">
+    <div class="login-brand"><img src="LOGO.png" alt="FloodGuard logo"><div class="name">CREATE <span>ACCOUNT</span></div><div class="sub">Request FloodGuard monitoring access</div></div>
+    <div class="field-label">Full name</div><input class="text-input" id="signupName" type="text" placeholder="e.g. Juan Dela Cruz" autocomplete="name">
+    <div class="field-label">Role</div><select class="text-input" id="signupRole"><option value="mdrrmo">MDRRMO Personnel</option><option value="barangay">Barangay Official</option></select>
+    <div class="field-label">Password</div><div class="password-field"><input class="text-input" id="signupPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password"><button class="password-toggle" type="button" data-password-toggle="signupPassword" aria-label="Show password" aria-pressed="false">👁</button></div>
+    <div class="field-label">Confirm password</div><div class="password-field"><input class="text-input" id="signupConfirmPassword" type="password" placeholder="Re-enter your password" autocomplete="new-password"><button class="password-toggle" type="button" data-password-toggle="signupConfirmPassword" aria-label="Show password" aria-pressed="false">👁</button></div>
+    <button class="login-btn btn-with-icon" id="signupBtn">Create account</button>
+    <div class="auth-switch">Already have an account? <button type="button" id="showLoginBtn">Log in</button></div>
   </div>
 </div>
 
