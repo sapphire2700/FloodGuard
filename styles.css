@@ -618,7 +618,9 @@ footer b{color:var(--ink-1);}
   .menu-toggle{display:inline-flex; margin-left:auto;}
   .view-title{order:4;}
   .top-right{order:3; width:100%; margin-left:0; justify-content:space-between;}
-  nav.sidebar{display:none; width:100%; height:auto; padding:10px 12px 14px; gap:7px; border-right:none; border-bottom:1px solid var(--line);}
+  /* Keep the expanded menu above the content instead of pushing it behind it. */
+  .app-body{position:relative;}
+  nav.sidebar{display:none; position:absolute; inset:0 0 auto; z-index:100; width:100%; height:auto; padding:10px 12px 14px; gap:7px; border-right:none; border-bottom:1px solid var(--line); background:var(--navy-950); box-shadow:0 14px 24px rgba(0,0,0,0.3);}
   nav.sidebar.mobile-open{display:flex; flex-direction:column;}
   .nav-caption{display:block; padding:6px 4px 2px;}
   .nav-btn{width:100%; flex:0 0 auto; padding:10px 12px; white-space:normal;}
