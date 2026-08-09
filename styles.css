@@ -620,7 +620,7 @@ footer b{color:var(--ink-1);}
   .top-right{order:3; width:100%; margin-left:0; justify-content:space-between;}
   /* Keep the expanded menu above the content instead of pushing it behind it. */
   .app-body{position:relative;}
-  nav.sidebar{display:none; position:absolute; top:0; right:12px; left:auto; z-index:100; width:min(300px, calc(100vw - 24px)); height:auto; padding:10px 12px 14px; gap:7px; border:1px solid var(--water); border-radius:0 0 12px 12px; background:var(--navy-950); box-shadow:0 14px 24px rgba(0,0,0,0.42);}
+  nav.sidebar{display:none; position:absolute; top:0; right:12px; left:auto; z-index:300; width:min(300px, calc(100vw - 24px)); height:auto; padding:10px 12px 14px; gap:7px; border:1px solid var(--water-bright); border-radius:0 0 12px 12px; background:linear-gradient(180deg, var(--navy-800), var(--navy-950)); box-shadow:0 18px 32px rgba(0,0,0,0.58), 0 0 0 1px rgba(58,167,214,0.16);}
   nav.sidebar.mobile-open{display:flex; flex-direction:column;}
   .nav-caption{display:block; padding:6px 4px 2px;}
   .nav-btn{width:100%; flex:0 0 auto; padding:10px 12px; white-space:normal;}
