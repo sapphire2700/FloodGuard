@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FloodGuard:Bilog Falls Water Level Monitoring</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="grain"></div>
+<div id="toastWrap"></div>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <img src="LOGO.png" alt="FloodGuard logo" title="FloodGuard logo">
+      <div class="name">FLOOD<span>GUARD</span></div>
+      <div class="sub">Bilog Falls · Barangay Cabotonan, Lagonoy, Camarines Sur</div>
+    </div>
+
+    <div class="field-label">Sign in as</div>
+    <div class="role-cards">
+      <div class="role-card selected" data-role="mdrrmo" id="roleCardMdrrmo">
+        <div class="ic">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 4 7v5c0 4.2 2.7 7.9 8 9 5.3-1.1 8-4.8 8-9V7l-8-4Z"/>
+            <path d="M9 12h6"/>
+            <path d="M10.5 9.5 12 12l1.5-2.5"/>
+          </svg>
+        </div>
+        <div class="lbl">MDRRMO Personnel</div>
+        <div class="sub">Municipal disaster office</div>
+      </div>
+      <div class="role-card" data-role="barangay" id="roleCardBarangay">
+        <div class="ic">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 10.5 12 4l8 6.5V20H4Z"/>
+            <path d="M9 20v-4h6v4"/>
+            <path d="M10 10.5h4"/>
+            <path d="M12 8v5"/>
+          </svg>
+        </div>
+        <div class="lbl">Barangay Official</div>
+        <div class="sub">Barangay Cabotonan</div>
+      </div>
+    </div>
+
+    <div class="field-label">Full name</div>
+    <input class="text-input" id="loginName" type="text" placeholder="e.g. Juan Dela Cruz">
+
+    <button class="login-btn btn-with-icon" id="loginBtn"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg>Log In</button>
+    <div class="login-hint">Demo access only — both roles share the same FloodGuard use cases<br>(water rise detection, real-time monitoring, predictive analytics, decision-support, thresholds, users, reports) per the system's use-case design.</div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="appShell">
+  <header class="top">
+    <img class="logo" src="LOGO.png" alt="FloodGuard logo" title="FloodGuard logo">
+    <div class="brand-block">
+      <div class="brand-name">FLOOD<span>GUARD</span></div>
+      <div class="brand-sub">Bilog Falls Monitoring</div>
+    </div>
+    <div class="view-title">Viewing: <b id="viewTitleText">Dashboard</b></div>
+
+    <div class="top-right">
+      <div class="status-pill" id="connPill"><span class="dot"></span><span id="connText">SENSOR ONLINE</span></div>
+      <div class="clock">
+        <b id="clockTime">--:--:--</b>
+        <span id="clockDate">-- --- ----</span>
+      </div>
+      <div class="user-chip">
+        <div class="av" id="userAvatar">JD</div>
+        <div>
+          <div class="u-name" id="userName">Juan Dela Cruz</div>
+          <div class="u-role" id="userRole">MDRRMO Personnel</div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <nav class="sidebar">
+      <div class="nav-caption">Monitoring</div>
+      <button class="nav-btn active" data-view="dashboard"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V9.5"/><path d="M12 18V5"/><path d="M20 18v-7"/><path d="M4 18h16"/></svg></span> Dashboard</button>
+      <button class="nav-btn" data-view="historical"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span> Historical Records</button>
+      <button class="nav-btn" data-view="alerts"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16h12"/><path d="M8 16V9a4 4 0 0 1 8 0v7"/><path d="M10 18a2 2 0 0 0 4 0"/></svg></span> Alert Logs</button>
+      <div class="nav-caption">Administration</div>
+      <button class="nav-btn" data-view="thresholds"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14"/><path d="M7 8v8"/><path d="M12 8v5"/><path d="M17 8v3"/><path d="M5 16h14"/></svg></span> Threshold Levels</button>
+      <button class="nav-btn" data-view="users"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M3 18c0-2.5 2-4 4-4s4 1.5 4 4"/><path d="M15 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M13 18c0-2 1.2-3.2 2.8-3.6"/></svg></span> Manage Users</button>
+      <button class="nav-btn" data-view="reports"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/></svg></span> Generate Reports</button>
+    </nav>
+
+    <main class="content">
+
+      <!-- ===================== DASHBOARD VIEW ===================== -->
+      <section class="view-section active" id="view-dashboard">
+        <div id="roleHero"></div>
+
+        <div class="grid grid-2">
+          <section class="card gauge-card">
+            <h2 class="card-title-full">Live Water Level <small id="lastUpdate">updated just now</small></h2>
+            <div class="gauge-wrap"><canvas id="tubeCanvas" width="220" height="360"></canvas></div>
+            <div class="status-badge" id="statusBadge">NORMAL</div>
+            <div class="reading-label">Current reading</div>
+            <div class="reading"><span id="levelValue">32</span><small> cm</small></div>
+            <div class="gauge-meta">
+              <div class="meta-item"><div class="k">Trend</div><div class="v" id="trendVal">steady</div></div>
+              <div class="meta-item"><div class="k">Distance to Critical</div><div class="v" id="distToCrit">58 cm</div></div>
+              <div class="meta-item"><div class="k">Battery / Solar</div><div class="v good" id="battVal">92%</div></div>
+              <div class="meta-item"><div class="k">Signal (GSM)</div><div class="v good" id="signalVal">Strong</div></div>
+            </div>
+            <div class="device-line">Sensor unit: JSN-SR04T waterproof ultrasonic · ESP32 microcontroller · SIM800L GSM fallback · solar + battery powered</div>
+            <div class="sim-controls">
+              <button class="primary btn-with-icon" id="btnRise"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12"/><path d="m8 8 4-4 4 4"/><path d="M6 16h12"/></svg>Simulate rising flood</button>
+              <button class="btn-with-icon" id="btnCalm"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V8"/><path d="m8 12 4 4 4-4"/><path d="M6 4h12"/></svg>Return to normal</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Water Level Trend <small>last 40 readings · ~5 min intervals</small></h2>
+            <canvas id="trendChart" height="230"></canvas>
+            <div class="stat-row">
+              <div class="stat"><div class="k">Sensor accuracy</div><div class="v ok">98.3%</div><div class="sub">vs. manual gauge validation</div></div>
+              <div class="stat"><div class="k">Alert latency</div><div class="v" id="latencyStat">3.1s</div><div class="sub">reading â†’ notification sent</div></div>
+              <div class="stat"><div class="k">Alerts today</div><div class="v" id="alertCountStat">0</div><div class="sub">across all channels</div></div>
+              <div class="stat"><div class="k">Uptime (30d)</div><div class="v ok">99.4%</div><div class="sub">sensor + link availability</div></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="card section-spaced">
+          <h2>Probable Water Source &amp; Cause <small>auto-diagnosed · rain-gauge &amp; rate-of-rise correlation</small></h2>
+          <div class="source-body" id="sourceBody"></div>
+        </section>
+
+        <div class="two-col">
+          <section class="card">
+            <h2>Predictive Flood Forecast <small>lightweight linear-regression model</small></h2>
+            <div class="forecast-body" id="forecastBody"></div>
+          </section>
+
+          <section class="card">
+            <h2>Decision-Support Recommendation <small id="dsRoleTag">for current role</small></h2>
+            <div class="ds-body" id="decisionSupportBody"></div>
+          </section>
+        </div>
+
+        <div class="two-col">
+          <section class="card">
+            <h2>Alert Channels <small>multi-channel dissemination</small></h2>
+            <div class="channel-grid">
+              <div class="channel" id="chanDash"><div class="icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 19h8"/><path d="M12 17v2"/></svg></div><div class="name">Web Dashboard</div><div class="state" id="chanDashState">idle</div></div>
+              <div class="channel" id="chanSMS"><div class="icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H9l-4 3V7a1 1 0 0 1 1-1Z"/><path d="m8 10 3 2 3-2"/></svg></div><div class="name">SMS Alert</div><div class="state" id="chanSMSState">idle</div></div>
+              <div class="channel" id="chanSiren"><div class="siren-ring" id="sirenRing"></div><div class="name">On-site Siren</div><div class="state" id="chanSirenState">idle</div></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Recent Alerts <small>latest 4 · full log in Alert Logs</small></h2>
+            <table>
+              <thead><tr><th>Time</th><th>Level</th><th>Status</th></tr></thead>
+              <tbody id="miniAlertBody"><tr class="empty-row"><td colspan="3">No alerts yet — water level normal.</td></tr></tbody>
+            </table>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===================== HISTORICAL RECORDS VIEW ===================== -->
+      <section class="view-section" id="view-historical">
+        <section class="card">
+          <h2>Historical Water Level Trend <small>Bilog Falls sensor unit</small></h2>
+          <canvas id="historyChart" height="230"></canvas>
+        </section>
+        <section class="card section-spaced">
+          <h2>Reading Log <small id="historyCount">0 records</small></h2>
+          <table>
+            <thead><tr><th>Timestamp</th><th>Water Level</th><th>Status</th></tr></thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ===================== ALERT LOGS VIEW ===================== -->
+      <section class="view-section" id="view-alerts">
+        <section class="card">
+          <h2>Alert Logs <small>full history, most recent first</small></h2>
+          <table>
+            <thead><tr><th>Time</th><th>Level</th><th>Status</th><th>Probable Source</th><th>Channels notified</th><th>Delivery</th><th>Evacuation tracking</th></tr></thead>
+            <tbody id="alertLogBody"><tr class="empty-row"><td colspan="7">No alerts logged yet — water level is within normal range.</td></tr></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ===================== THRESHOLDS VIEW ===================== -->
+      <section class="view-section" id="view-thresholds">
+        <section class="card">
+          <h2>Threshold Levels <small>shared config · applies to all monitoring users</small></h2>
+          <p class="intro-copy">Adjust the water-level thresholds (in centimeters) that trigger each alert stage. Changes apply immediately to the live gauge, trend chart, and alert dispatch logic.</p>
+          <div class="threshold-list" id="thresholdList"></div>
+        </section>
+      </section>
+
+      <!-- ===================== USERS VIEW ===================== -->
+      <section class="view-section" id="view-users">
+        <section class="card">
+          <h2>Manage Users <small>MDRRMO personnel &amp; barangay officials with system access</small></h2>
+          <div class="user-form">
+            <input class="text-input" id="newUserName" type="text" placeholder="Full name">
+            <select class="text-input" id="newUserRole" title="Select user role">
+              <option value="MDRRMO Personnel">MDRRMO Personnel</option>
+              <option value="Barangay Official">Barangay Official</option>
+            </select>
+            <input class="text-input" id="newUserArea" type="text" placeholder="Assigned area">
+            <button class="small-btn btn-with-icon" id="addUserBtn"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/><path d="M8 5.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>Add user</button>
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Role</th><th>Assigned area</th><th>Status</th><th></th></tr></thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ===================== REPORTS VIEW ===================== -->
+      <section class="view-section" id="view-reports">
+        <section class="card">
+          <h2>Generate Reports <small>flood analytics summary</small></h2>
+          <p class="intro-copy">Compiles current sensor readings, alert history, and threshold configuration into a shareable summary for disaster preparedness records.</p>
+          <div class="report-actions">
+            <button class="small-btn btn-with-icon" id="genReportBtn"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>Generate report</button>
+            <button class="small-btn btn-with-icon" id="downloadReportBtn" disabled><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg>Download .txt</button>
+          </div>
+          <div class="report-preview" id="reportPreview"></div>
+        </section>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <b>FloodGuard</b> — An IoT-Based Flood Early Warning System for Bilog Falls, Barangay Cabotonan, Lagonoy, Camarines Sur ·
+    Capstone Project, College of Engineering and Computational Sciences, Partido State University ·
+    N. Pempeña I · J.K. Pahoyo · R.R. Vipinoso — simulated dashboard for demonstration
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
