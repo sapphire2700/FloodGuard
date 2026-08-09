@@ -238,8 +238,23 @@
     dashboard:'Dashboard', historical:'Historical Records', alerts:'Alert Logs',
     thresholds:'Threshold Levels', users:'Manage Users', reports:'Generate Reports'
   };
+  function setMobileMenu(open){
+    const menu = $('sidebarMenu');
+    $('menuToggle').setAttribute('aria-expanded', String(open));
+    $('menuToggle').setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    menu.classList.toggle('mobile-open', open);
+  }
+
+  $('menuToggle').addEventListener('click', () => {
+    setMobileMenu(!$('sidebarMenu').classList.contains('mobile-open'));
+  });
+  window.addEventListener('resize', () => { if(window.innerWidth > 860) setMobileMenu(false); });
+
   document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => showView(btn.dataset.view));
+    btn.addEventListener('click', () => {
+      showView(btn.dataset.view);
+      if(window.innerWidth <= 860) setMobileMenu(false);
+    });
   });
   function showView(key){
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));

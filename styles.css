@@ -610,3 +610,20 @@ footer b{color:var(--ink-1);}
 .auth-switch button{padding:0; border:0; background:transparent; color:var(--water-bright); font:inherit; cursor:pointer;}
 .auth-switch button:hover{text-decoration:underline;}
 @media (max-width:600px){#signupScreen{align-items:flex-start; padding:16px;} #signupScreen .login-card{margin-top:4vh;}}
+/* Mobile navigation */
+.menu-toggle{display:none; align-items:center; justify-content:center; width:38px; height:38px; padding:0; border:1px solid var(--line); border-radius:9px; background:rgba(255,255,255,0.06); color:var(--ink-0); cursor:pointer;}
+.menu-toggle:hover,.menu-toggle[aria-expanded="true"]{border-color:var(--water); color:var(--water-bright); background:rgba(58,167,214,0.12);}
+.menu-toggle .icon-svg{width:20px; height:20px;}
+@media (max-width:860px){
+  .menu-toggle{display:inline-flex; margin-left:auto;}
+  .view-title{order:4;}
+  .top-right{order:3; width:100%; margin-left:0; justify-content:space-between;}
+  nav.sidebar{display:none; width:100%; height:auto; padding:10px 12px 14px; gap:7px; border-right:none; border-bottom:1px solid var(--line);}
+  nav.sidebar.mobile-open{display:flex; flex-direction:column;}
+  .nav-caption{display:block; padding:6px 4px 2px;}
+  .nav-btn{width:100%; flex:0 0 auto; padding:10px 12px; white-space:normal;}
+}
+@media (max-width:600px){
+  .menu-toggle{width:34px; height:34px;}
+  .top-right{display:flex;}
+}

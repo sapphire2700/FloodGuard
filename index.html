@@ -77,6 +77,9 @@
       <div class="brand-name">FLOOD<span>GUARD</span></div>
       <div class="brand-sub">Bilog Falls Monitoring</div>
     </div>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-controls="sidebarMenu" aria-expanded="false">
+      <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+    </button>
     <div class="view-title">Viewing: <b id="viewTitleText">Dashboard</b></div>
 
     <div class="top-right">
@@ -97,7 +100,7 @@
   </header>
 
   <div class="app-body">
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebarMenu">
       <div class="nav-caption">Monitoring</div>
       <button class="nav-btn active" data-view="dashboard"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V9.5"/><path d="M12 18V5"/><path d="M20 18v-7"/><path d="M4 18h16"/></svg></span> Dashboard</button>
       <button class="nav-btn" data-view="historical"><span class="ic"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span> Historical Records</button>
