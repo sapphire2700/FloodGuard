@@ -127,7 +127,6 @@
       button.classList.toggle('is-visible', visible);
       button.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
       button.setAttribute('aria-pressed', String(visible));
-      button.textContent = visible ? '🙈' : '👁';
     });
   });
 

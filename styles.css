@@ -627,3 +627,8 @@ footer b{color:var(--ink-1);}
   .menu-toggle{width:34px; height:34px;}
   .top-right{display:flex;}
 }
+/* Password visibility icons */
+.password-toggle .icon-svg{width:18px; height:18px;}
+.password-toggle .eye-off-icon{display:none;}
+.password-toggle.is-visible .eye-icon{display:none;}
+.password-toggle.is-visible .eye-off-icon{display:block;}
